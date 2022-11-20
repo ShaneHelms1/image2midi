@@ -3,6 +3,18 @@
 image2midi/main.py
 '''
 
+des = '''
+image2midi
+by maohupi
+
+arguments
+-i: input file path(must be a jpeg file)
+-o: output file path(will be a midi file)
+-m: convert mode('gate' or 'edge')
+-y, -n: overwrite confirm(to overwrite or not)
+-h: help(see all of the arguments)
+'''
+
 import os
 import sys
 import numpy
@@ -24,7 +36,8 @@ argTypes = {
     'output': ['o', 'output', 'midi', 'mid'], 
     'mode': ['m', 'mode', 'mod'], 
     'yes': ['y', 'yes', 'skip'], 
-    'no': ['n', 'no', 'dontskip']
+    'no': ['n', 'no', 'dontskip'], 
+    'help': ['h', 'help', 'description', 'des']
 }
 for i in range(1, len(sys.argv)):
     key = sys.argv[i]
@@ -35,6 +48,10 @@ for i in range(1, len(sys.argv)):
             if key in argTypes[argType]:
                 args[argType] = value
 
+if 'help' in args:
+    print(des)
+if 'input' not in args:
+    exit()
 imagePath = path + '/image2midi_input.jpg'
 inputPath = args['input'] if 'input' in args else path + '/input.jpg'
 midiPath = path + '/image2midi_output.mid'
