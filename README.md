@@ -8,6 +8,15 @@ by maohupi
 * ***`-m`***: convert mode('gate' or 'edge')
 * ***`-y`***, ***`-n`***: overwrite confirm(to overwrite or not)
 * ***`-h`***: help(see all of the arguments)
+<style>
+  img {
+    width: 300px;
+    height: 300px;
+  }
+  td {
+    border: none;
+  }
+</style>
 
 <table>
   <tbody>
