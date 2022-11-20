@@ -98,7 +98,17 @@ for note in playing:
             first = False
         playing[r] = False
 midi.save(midiPath)
-copyFile(midiPath, outputPath)
+if os.path.isfile(outputPath):
+    flag = False
+    if 'yes' in args:
+        flag = True
+    elif 'no' in args:
+        flag = False
+    else:
+        flag = input('File \'{filePath}\' already exists. Overwrite? [y/N]'.format(filePath = outputPath))
+        flag = not (flag.lower().find('n') > -1)
+    if flag:
+        copyFile(midiPath, outputPath)
 
 os.unlink(imagePath)
 os.unlink(midiPath)
