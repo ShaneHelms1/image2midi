@@ -117,10 +117,11 @@ for midiPath in midiPaths:
         keyboard.press_and_release('ctrl+v')
         time.sleep(0.1)
         keyboard.press_and_release('alt+o')
-        time.sleep(0.3)
+        time.sleep(0.5)
         keyboard.press_and_release('esc')
-        keyboard.press_and_release('f7')
         time.sleep(0.2)
+        keyboard.press_and_release('f7')
+        time.sleep(0.8)
     else:
         def flOpen():
             os.system('"C:\Program Files\Image-Line\FL Studio 20\FL64.exe" {midiPath}'.format(midiPath = os.path.abspath(midiPath)))
