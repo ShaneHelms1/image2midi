@@ -18,7 +18,7 @@ path = '.' if os.path.isfile('./'+os.path.basename(__file__)) else os.path.dirna
 inputFile = ''
 workDir = path + '/video2fmv_sliceConvert'
 outputfile = path + '/output.mp4'
-sliceAction = 1
+sliceAction = 29
 frameRate = 60
 sliceLength = 60
 level = 3
@@ -42,6 +42,7 @@ try:
         for i in range(sliceAction-1, sliceNum):
             os.system('python "{path}/video2fmv.py" -i "{sliceName}" -o "{outputPath}" -r {frameRate} -mode "gate" -y'.format(path = path, sliceName = workDir + '/' + sliceNames[i], outputPath = workDir + '/done_' + sliceNames[i], frameRate = frameRate))
             print(i)
+        # python video2fmv.py -i "video2fmv_sliceConvert/slice_3.mp4" -o "video2fmv_sliceConvert/done_slice_3.mp4"
     elif level == 4:
         doneNames = sorted([name for name in os.listdir(workDir) if name.find('done_slice_') == 0], key = lambda name: int(name.replace('done_slice_', '').replace('.mp4', '')))
         doneNames = list(map(lambda n: workDir + '/' + n, doneNames))

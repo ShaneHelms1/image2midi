@@ -21,6 +21,7 @@ import sys
 import time
 import shutil
 import keyboard
+import pyperclip
 import threading
 import PIL.ImageGrab
 
@@ -104,18 +105,35 @@ for i in range(startFrame-1, endFrame):
 frameIndex = 1
 for midiPath in midiPaths:
     print(os.path.abspath(midiPath))
-    def flOpen():
-        os.system('"C:\Program Files\Image-Line\FL Studio 20\FL64.exe" {midiPath}'.format(midiPath = os.path.abspath(midiPath)))
-    t = threading.Thread(target = flOpen)
-    t.start()
 
-    time.sleep(3)
-    keyboard.press_and_release('n')
-    time.sleep(0.5)
-    keyboard.press_and_release('enter')
-    time.sleep(2)
-    keyboard.press_and_release('f7')
-    time.sleep(0.5)
+    fastMode = True
+    if fastMode:
+        keyboard.press_and_release('ctrl+m')
+        time.sleep(0.3)
+        keyboard.press_and_release('alt+n')
+        time.sleep(0.1)
+        keyboard.press_and_release('ctrl+a')
+        pyperclip.copy(os.path.abspath(midiPath))
+        keyboard.press_and_release('ctrl+v')
+        time.sleep(0.1)
+        keyboard.press_and_release('alt+o')
+        time.sleep(0.3)
+        keyboard.press_and_release('esc')
+        keyboard.press_and_release('f7')
+        time.sleep(0.2)
+    else:
+        def flOpen():
+            os.system('"C:\Program Files\Image-Line\FL Studio 20\FL64.exe" {midiPath}'.format(midiPath = os.path.abspath(midiPath)))
+        t = threading.Thread(target = flOpen)
+        t.start()
+        time.sleep(4)
+        keyboard.press_and_release('n')
+        time.sleep(0.5)
+        keyboard.press_and_release('enter')
+        time.sleep(2)
+        keyboard.press_and_release('f7')
+        time.sleep(0.5)
+
     screenShot = PIL.ImageGrab.grab().save(outputDir + '/' + screenShotName%(frameIndex), 'PNG')
     frameIndex += 1
     # keyboard.wait('right')
