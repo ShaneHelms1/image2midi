@@ -60,7 +60,7 @@ if 'help' in args:
 if 'input' not in args:
     exit()
 
-startFrame = int(args['start']) if 'start' in args else 0
+startFrame = int(args['start']) if 'start' in args else 1
 endFrame = int(args['end']) if 'end' in args else False
 frameLength = int(args['length']) if 'length' in args else False
 frameRate = int(args['rate']) if 'rate' in args else 60
@@ -86,7 +86,6 @@ os.unlink(videoPath)
 
 imageNames = sorted(os.listdir(imageDir), key = lambda name: int(name.replace('.png', '')))
 midiPaths = []
-endFrame = startFrame + frameLength
 if endFrame == False:
     if frameLength != False:
         endFrame = startFrame + frameLength
@@ -95,7 +94,7 @@ if endFrame == False:
 if endFrame > len(imageNames):
     endFrame = len(imageNames)
 
-for i in range(startFrame-1, endFrame-1):
+for i in range(startFrame-1, endFrame):
     imageName = imageNames[i]
     imagePath = imageDir + '/' + imageName
     midiPath = outputDir + '/' + imageName + '.mid'
@@ -110,7 +109,7 @@ for midiPath in midiPaths:
     t = threading.Thread(target = flOpen)
     t.start()
 
-    time.sleep(2)
+    time.sleep(3)
     keyboard.press_and_release('n')
     time.sleep(0.5)
     keyboard.press_and_release('enter')

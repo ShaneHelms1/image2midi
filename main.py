@@ -110,7 +110,7 @@ for c in range(cNum):
                 lastTime = c
                 if first:
                     first = False
-                playing[r] = False
+                playing[note] = False
     else:
         for r in range(len(dots)):
             if dots[r][c] != (playing[r] if r in playing else False):
