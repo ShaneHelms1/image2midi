@@ -18,11 +18,13 @@ path = '.' if os.path.isfile('./'+os.path.basename(__file__)) else os.path.dirna
 inputFile = ''
 workDir = path + '/video2fmv_sliceConvert'
 outputfile = path + '/output.mp4'
-sliceAction = 87
+sliceAction = -1
 frameRate = 60
 sliceLength = 60
 level = 3
 print(level)
+
+doneList = []
 
 try:
     if level == 1:
@@ -37,11 +39,22 @@ try:
             os.system('ffmpeg -f image2 -start_number {start_number} -framerate {frameRate} -i "{inputPath}" -frames:v {sliceLength} -loop "0" "{videoPath}" -y'.format(start_number = i*sliceLength, sliceLength = min(i+sliceLength, frameLength) - i, videoPath = workDir + '/slice_%d.mp4'%(s), inputPath = os.path.abspath(workDir + '/frame_%d.png'), frameRate = frameRate))
             s += 1
     elif level == 3:
-        sliceNames = sorted([name for name in os.listdir(workDir) if name.find('slice_') == 0], key = lambda name: int(name.replace('slice_', '').replace('.mp4', '')))
-        sliceNum = len(sliceNames)
-        for i in range(sliceAction-1, sliceNum):
+        def video2fmv(i):
             os.system('python "{path}/video2fmv.py" -i "{sliceName}" -o "{outputPath}" -r {frameRate} -mode "gate" -y'.format(path = path, sliceName = workDir + '/' + sliceNames[i], outputPath = workDir + '/done_' + sliceNames[i], frameRate = frameRate))
             print(i)
+        sliceNames = sorted([name for name in os.listdir(workDir) if name.find('slice_') == 0], key = lambda name: int(name.replace('slice_', '').replace('.mp4', '')))
+        sliceNum = len(sliceNames)
+        if sliceAction > 0:
+            for i in range(sliceAction-1, sliceNum):
+                video2fmv(i)
+                doneList.append(i)
+        elif sliceAction == -1:
+            for i in range(0, sliceNum):
+                if not os.path.isfile(workDir + '/done_' + sliceNames[i]):
+                    video2fmv(i)
+                    doneList.append(i)
+        else:
+            print('sliceAction must be \'-1\' or \'a positive number\'')
         # python video2fmv.py -i "video2fmv_sliceConvert/slice_3.mp4" -o "video2fmv_sliceConvert/done_slice_3.mp4" -y
     elif level == 4:
         doneNames = sorted([name for name in os.listdir(workDir) if name.find('done_slice_') == 0], key = lambda name: int(name.replace('done_slice_', '').replace('.mp4', '')))
@@ -60,3 +73,4 @@ except KeyboardInterrupt:
 #     winsound.Beep(540, 50)
 #     winsound.Beep(540, 50)
 #     winsound.Beep(540, 100)
+print(doneList)
