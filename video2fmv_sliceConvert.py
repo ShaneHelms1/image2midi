@@ -15,13 +15,13 @@ import threading
 
 path = '.' if os.path.isfile('./'+os.path.basename(__file__)) else os.path.dirname(os.path.abspath(__file__))
 
-inputFile = ''
+inputFile = r""
 workDir = path + '/video2fmv_sliceConvert'
-outputfile = path + '/output.mp4'
+outputFile = path + '/output.mp4'
 sliceAction = -1
 frameRate = 60
 sliceLength = 60
-level = 3
+level = 5
 print(level)
 
 doneList = []
@@ -47,12 +47,12 @@ try:
         if sliceAction > 0:
             for i in range(sliceAction-1, sliceNum):
                 video2fmv(i)
-                doneList.append(i)
+                doneList.append(sliceNames[i])
         elif sliceAction == -1:
             for i in range(0, sliceNum):
                 if not os.path.isfile(workDir + '/done_' + sliceNames[i]):
                     video2fmv(i)
-                    doneList.append(i)
+                    doneList.append(sliceNames[i])
         else:
             print('sliceAction must be \'-1\' or \'a positive number\'')
         # python video2fmv.py -i "video2fmv_sliceConvert/slice_3.mp4" -o "video2fmv_sliceConvert/done_slice_3.mp4" -y
@@ -63,7 +63,9 @@ try:
         textFile = open(textPath, 'w+', encoding = 'utf-8')
         textFile.write('\n'.join(list(map(lambda p: 'file \'%s\''%(p.replace('./', '')), doneNames))))
         textFile.close()
-        os.system('ffmpeg -f concat -safe 0 -i "{textPath}" -c copy "{outputfile}" -y'.format(textPath = textPath, outputfile = outputfile))
+        os.system('ffmpeg -f concat -safe 0 -i "{textPath}" -c copy "{outputFile}" -y'.format(textPath = textPath, outputFile = outputFile))
+    elif level == 5:
+        os.system('ffmpeg -i "{inputFile}" -i "{outputFile}" -map 0:a -map 1:v -c copy "{outputFile}_audio.mp4" -y'.format(inputFile = inputFile, outputFile = outputFile))
     winsound.Beep(540, 100)
     winsound.Beep(440, 100)
 except KeyboardInterrupt:
