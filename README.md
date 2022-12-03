@@ -4,7 +4,7 @@ by maohupi
 
 <hr>
 
-## image2midi.py
+## main.py (Image to Midi)
 
 ### arguments
 * ***`-i`***: input file path(must be a jpeg file)
@@ -33,7 +33,7 @@ by maohupi
 
 <hr>
 
-## video2fmv.py
+## video2fmv.py (Video to FL Studio Midi Video)
 
 ### arguments
 * ***`-i`***: input file path(must be a mpeg-4 file)
