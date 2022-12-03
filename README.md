@@ -2,6 +2,8 @@
 
 by maohupi
 
+<hr>
+
 ## image2midi.py
 
 ### arguments
