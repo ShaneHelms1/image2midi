@@ -33,7 +33,7 @@ by maohupi
 
 <hr>
 
-## video2fmv
+## video2fmv.py
 
 ### arguments
 * ***`-i`***: input file path(must be a mpeg-4 file)
