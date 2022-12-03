@@ -2,7 +2,9 @@
 
 by maohupi
 
-## arguments
+## image2midi.py
+
+### arguments
 * ***`-i`***: input file path(must be a jpeg file)
 * ***`-o`***: output file path(will be a midi file)
 * ***`-m`***: convert mode('gate' or 'edge')
@@ -10,7 +12,7 @@ by maohupi
 * ***`-y`***, ***`-n`***: overwrite confirm(to overwrite or not)
 * ***`-h`***: help(see all of the arguments)
 
-## example
+### example
 <table>
   <tbody>
     <tr>
@@ -29,9 +31,9 @@ by maohupi
 
 <hr>
 
-# video2fmv
+## video2fmv
 
-## arguments
+### arguments
 * ***`-i`***: input file path(must be a mpeg-4 file)
 * ***`-o`***: output file path(will be a mpeg-4 file)
 * ***`-m`***: convert mode('gate' or 'edge')
@@ -39,7 +41,7 @@ by maohupi
 * ***`-y`***, ***`-n`***: overwrite confirm(to overwrite or not)
 * ***`-h`***: help(see all of the arguments)
 
-## example
+### example
 <table>
   <tbody>
     <tr>
