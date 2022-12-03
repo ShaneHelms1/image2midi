@@ -6,6 +6,7 @@ by maohupi
 * ***`-i`***: input file path(must be a jpeg file)
 * ***`-o`***: output file path(will be a midi file)
 * ***`-m`***: convert mode('gate' or 'edge')
+* ***`-s`***: show image when converting
 * ***`-y`***, ***`-n`***: overwrite confirm(to overwrite or not)
 * ***`-h`***: help(see all of the arguments)
 
@@ -31,9 +32,10 @@ by maohupi
 # video2fmv
 
 ## arguments
-* ***`-i`***: input file path(must be a jpeg file)
-* ***`-o`***: output file path(will be a midi file)
+* ***`-i`***: input file path(must be a mpeg-4 file)
+* ***`-o`***: output file path(will be a mpeg-4 file)
 * ***`-m`***: convert mode('gate' or 'edge')
+* ***`-r`***: output video frame rate(must be an integer)
 * ***`-y`***, ***`-n`***: overwrite confirm(to overwrite or not)
 * ***`-h`***: help(see all of the arguments)
 
