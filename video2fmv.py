@@ -38,44 +38,47 @@ def copyFile(fromPath, toPath):
 import cv2
 import numpy as np
 modelDir = path + '/correctPredictModel'
-# def correctPredictFunction():
-#     from keras.models import load_model
-#     model = load_model(modelDir + '/keras_model.h5')
-#     labels = open(modelDir + '/labels.txt', 'r').readlines()
-#     def correctPredict(image):
-#         image = cv2.resize(image, (224, 224), interpolation=cv2.INTER_AREA)
-#         image = np.asarray(image, dtype=np.float32).reshape(1, 224, 224, 3)
-#         image = (image / 127.5) - 1
-#         probabilities = model.predict(image)
-#         print(probabilities)
-#         return(labels[np.argmax(probabilities)])
-#     return(correctPredict)
 def correctPredictFunction():
-    def correctPredict(image):
-        image = cv2.resize(image, (224, 224), interpolation=cv2.INTER_AREA)
-        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        errorColors = [
-            {'color': [248, 154, 154], 'delta': 80, 'number': 100}, 
-            {'color': [0, 104, 104], 'delta': 10, 'number': 100}, 
-        ]
-        dList = []
-        for e in errorColors:
-            errorNum = 0
-            for r in image:
-                for c in r:
-                    d = False
-                    for i in range(0, 3):
-                        numberDelta = abs(c[i] - e['color'][i])
-                        d = (d**2 + numberDelta**2)**0.5 if type(d) != bool or d != False else numberDelta
-                    if d < e['delta']:
-                        errorNum += 1
-                    dList.append(d)
-            if errorNum > e['number']:
-                print('errorNum: %d, min: %d, color: %s'%(errorNum, int(min(*dList)), ','.join([str(n) for n in e['color']])))
-                return('1 false')
-        print('errorNum: %d, min: %d'%(errorNum, int(min(*dList))))
-        return('0 true')
-    return(correctPredict)
+    useAI = False
+    if useAI:
+        from keras.models import load_model
+        model = load_model(modelDir + '/keras_model.h5')
+        labels = open(modelDir + '/labels.txt', 'r').readlines()
+        def correctPredict(image):
+            image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+            image = cv2.resize(image, (224, 224), interpolation=cv2.INTER_AREA)
+            image = np.asarray(image, dtype=np.float32).reshape(1, 224, 224, 3)
+            image = (image / 127.5) - 1
+            probabilities = model.predict(image)
+            print(probabilities)
+            return(labels[np.argmax(probabilities)])
+        return(correctPredict)
+    else:
+        def correctPredict(image):
+            image = cv2.resize(image, (224, 224), interpolation=cv2.INTER_AREA)
+            image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+            errorColors = [
+                {'color': [248, 154, 154], 'delta': 80, 'number': 100}, 
+                {'color': [0, 104, 104], 'delta': 10, 'number': 100}, 
+            ]
+            dList = []
+            for e in errorColors:
+                errorNum = 0
+                for r in image:
+                    for c in r:
+                        d = False
+                        for i in range(0, 3):
+                            numberDelta = abs(c[i] - e['color'][i])
+                            d = (d**2 + numberDelta**2)**0.5 if type(d) != bool or d != False else numberDelta
+                        if d < e['delta']:
+                            errorNum += 1
+                        dList.append(d)
+                if errorNum > e['number']:
+                    print('errorNum: %d, min: %d, color: %s'%(errorNum, int(min(*dList)), ','.join([str(n) for n in e['color']])))
+                    return('1 false')
+            print('errorNum: %d, min: %d'%(errorNum, int(min(*dList))))
+            return('0 true')
+        return(correctPredict)
 correctPredict = correctPredictFunction()
 testPath = False
 # testPath = "./modelTestImage/e5.png"
