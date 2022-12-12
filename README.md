@@ -4,7 +4,9 @@ by maohupi
 
 <hr>
 
-## main.py (Image to Midi)
+## main.py
+
+> Image to Midi
 
 ### arguments
 * ***`-i`***: input file path(must be a jpeg file)
@@ -33,7 +35,9 @@ by maohupi
 
 <hr>
 
-## video2fmv.py (Video to FL Studio Midi Video)
+## video2fmv.py
+
+> Video to FL Studio Midi Video
 
 ### arguments
 * ***`-i`***: input file path(must be a mpeg-4 file)
@@ -59,3 +63,13 @@ by maohupi
     </tr>
   </tbody>
 </table>
+
+---
+
+## video2fmv_sliceConvert.py
+
+> help you to convert Video to FL Studio Midi Video with slice the video
+
+### example
+
+[［FL Studio］Bad Apple in FL Studio](https://youtu.be/2emglt7EVgk)
